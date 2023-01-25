@@ -1,21 +1,34 @@
 import "./App.css";
-import { useState } from "react";
-import { Text } from "./Text";
+import Axios from "axios";
+import { useEffect, useState } from "react";
 
 function App() {
-    const [showText, setShowText] = useState(false);
+    const [name, setName] = useState("");
+    const [predictedAge, setPredictedAge] = useState(null);
+
+    const fetchData = () => {
+        Axios.get(`https://api.agify.io/?name=${name}`).then(
+            (res) => {
+                setPredictedAge(res.data);
+            }
+        );
+    };
 
     return (
         <div className="App">
-            <button
-                onClick={() => {
-                    setShowText(!showText);
+                <input placeholder="Enter name..."
+                       onChange={(event) => {
+                       setName(event.target.value)
                 }}
-            >
-                Show Text
-            </button>
+                    />
+                <button onClick={fetchData}> Get age</button>
 
-            {showText && <Text />}
+                    <h1>Information</h1>
+
+                    <p>Name: {predictedAge?.name}</p>
+                    <p>Predicted Age: {predictedAge?.age}</p>
+                    <p>Count: {predictedAge?.count}</p>
+
         </div>
     );
 }
