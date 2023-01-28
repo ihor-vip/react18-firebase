@@ -1,10 +1,10 @@
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../../config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {addDoc, collection} from "firebase/firestore";
+import {auth, db} from "../../config/firebase";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {useNavigate} from "react-router-dom";
 
 interface CreateFormData {
     title: string;
@@ -23,7 +23,7 @@ export const CreateForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
     } = useForm<CreateFormData>({
         resolver: yupResolver(schema),
     });
@@ -43,10 +43,10 @@ export const CreateForm = () => {
     return (
         <form onSubmit={handleSubmit(onCreatePost)}>
             <input placeholder="Title..." {...register("title")} />
-            <p style={{ color: "red" }}> {errors.title?.message}</p>
+            <p style={{color: "red"}}> {errors.title?.message}</p>
             <textarea placeholder="Description..." {...register("description")} />
-            <p style={{ color: "red" }}> {errors.description?.message}</p>
-            <input type="submit" className="submitForm" />
+            <p style={{color: "red"}}> {errors.description?.message}</p>
+            <input type="submit" className="submitForm"/>
         </form>
     );
 };
